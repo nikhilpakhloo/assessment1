@@ -29,8 +29,8 @@ The Weather App provides users with up-to-date weather information for any city 
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd weather-app
+   git clone https://github.com/nikhilpakhloo/assessment1.git
+   cd assessment1
 
 2. npm install
 
@@ -38,36 +38,34 @@ The Weather App provides users with up-to-date weather information for any city 
 
 
 ### Install dependencies:
-bash
-Copy code
+```bash
 npm install
-Running the App
-To start the development server:
 
-bash
-Copy code
+### To start the development server:
+```bash
 npm run dev
-Usage
-- Enter a city name to fetch and display current weather data.
-- Navigate between tabs to view the 5-day weather forecast.
-- Contributing
-- Contributions are welcome! Please follow these steps:
 
-Fork the project.
-Create your feature branch (git checkout -b feature/YourFeature).
-Commit your changes (git commit -am 'Add some feature').
-Push to the branch (git push origin feature/YourFeature).
-Open a pull request.
-License
+### Usage
+- Click on Location Icon to Display the current location weather.
+- Enter a city name to fetch and display current weather data.
+- After searching city you can check the current weather details , hourly forcast of a day and daily forecast
+- 
+
+
+### Fork the project.
+- Create your feature branch (git checkout -b feature/YourFeature).
+- Commit your changes (git commit -am 'Add some feature').
+- Push to the branch (git push origin feature/YourFeature).
+- Open a pull request.
+### License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Contact
-Email: your-email@example.com
-GitHub: YourGitHubUsername
-vbnet
-Copy code
+### Contact
+Email: nikhilpakhloo@gmail.com
+GitHub: nikhilpakhloo
 
-Feel free to adjust and expand upon this template to fit your specific project needs. This structure aims to provide comprehensive documentation that helps users understand, use, and contribute to your project effectively.
+
+
 
 
 
