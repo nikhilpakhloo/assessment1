@@ -4,12 +4,12 @@ import SearchBar from "./components/SearchBar";
 import TimeAndLocation from "./components/TimeAndLocation";
 import WeatherDetails from "./components/WeatherDetails";
 import Forecast from "./components/Forecast";
+import { getFormattedData } from "./WeatherServices/WeatherServices";
 
 
-import { getFormattedData } from "./components/WeatherServices/WeatherServices";
 
 export default function App() {
-  const [query, setQuery] = useState({ q: "London" });
+  const [query, setQuery] = useState({ q: "Gurugram" });
   const [units, setUnits] = useState("metric");
   const [weather, setWeather] = useState(null);
   const getWeather = async () => {

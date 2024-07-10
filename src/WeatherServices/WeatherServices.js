@@ -1,4 +1,4 @@
-import { formatToLocalTime } from "../../Utils/Helpers";
+import { formatToLocalTime } from "../Utils/Helpers";
 
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const BASE_URL = import.meta.env.VITE_WEATHER_BASE_URL;
