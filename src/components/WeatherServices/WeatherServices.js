@@ -1,33 +1,24 @@
-// Importing DateTime from Luxon for date/time manipulation
-import { DateTime } from "luxon";
+import { formatToLocalTime } from "../../Utils/Helpers";
 
-// Retrieving environment variables for API key and base URL
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const BASE_URL = import.meta.env.VITE_WEATHER_BASE_URL;
 
-// Function to fetch weather data from the API
+// Function to fetch weather data from API
 const getWeatherData = (infoType, searchParams) => {
-  // Constructing the URL for the API request
+  // Constructing URL for the API endpoint based on infoType (weather or forecast)
   const url = new URL(BASE_URL + infoType);
-  // Setting query parameters including API key
+  // Appending search parameters including API key to the URL
   url.search = new URLSearchParams({ ...searchParams, appid: API_KEY });
-  // Fetching data from the constructed URL and parsing the response as JSON
+  // Fetching data from the constructed URL and converting the response to JSON
   return fetch(url).then((res) => res.json());
 };
 
-// Function to construct icon URL based on icon code from weather data
+// Function to generate URL for weather icon based on icon code
 const iconUrl = (icon) => `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
-// Function to format Unix timestamp with offset to local time using Luxon
-const formatToLocalTime = (
-  secs,
-  offset,
-  format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
-) => DateTime.fromSeconds(secs + offset, { zone: "utc" }).toFormat(format);
-
-// Function to format current weather data into a desired structure
+// Function to format current weather data
 const formatCurrentData = (data) => {
-  // Destructuring necessary properties from weather data object
+  // Destructuring necessary data from the API response
   const {
     coord: { lat, lon },
     main: { temp, feels_like, temp_min, temp_max, humidity },
@@ -39,13 +30,13 @@ const formatCurrentData = (data) => {
     timezone,
   } = data;
 
-  // Destructuring weather details from the first entry in the 'weather' array
+  // Destructuring weather details like main weather description and icon code
   const { main: details, icon } = weather[0];
 
-  // Formatting local time using Luxon based on provided timestamp and timezone offset
+  // Formatting local time using a utility function
   const formattedLocalTime = formatToLocalTime(dt, timezone);
 
-  // Returning formatted weather data object
+  // Returning formatted current weather data
   return {
     temp,
     feels_like,
@@ -67,9 +58,9 @@ const formatCurrentData = (data) => {
   };
 };
 
-// Function to format forecasted weather data into hourly and daily forecasts
+// Function to format forecasted weather data
 const formatForecastWeather = (secs, offset, data) => {
-  // Filtering data for hourly forecasts after current time
+  // Filtering and mapping hourly forecast data
   const hourly = data
     .filter((f) => f.dt > secs)
     .map((f) => ({
@@ -78,9 +69,9 @@ const formatForecastWeather = (secs, offset, data) => {
       icon: iconUrl(f.weather[0].icon),
       date: f.dt_txt,
     }))
-    .slice(0, 5); // Taking the first 5 entries for hourly forecast
+    .slice(0, 5); // Selecting first 5 hourly forecasts
 
-  // Filtering data for daily forecasts based on midnight timestamps
+  // Filtering and mapping daily forecast data
   const daily = data
     .filter((f) => f.dt_txt.slice(-8) === "00:00:00")
     .map((f) => ({
@@ -90,30 +81,28 @@ const formatForecastWeather = (secs, offset, data) => {
       date: f.dt_txt,
     }));
 
-  // Returning formatted forecasted weather data (hourly and daily)
+  // Returning formatted hourly and daily forecast data
   return { hourly, daily };
 };
 
-// Async function to get formatted weather data including current and forecasted weather
+// Async function to fetch and format weather data for display
 const getFormattedData = async (searchParams) => {
   // Fetching current weather data and formatting it
-  const formattedWeatherData = await getWeatherData("weather", searchParams).then(
-    formatCurrentData
-  );
+  const formattedWeatherData = await getWeatherData("weather", searchParams).then(formatCurrentData);
 
-  // Destructuring necessary properties from formatted current weather data
+  // Extracting necessary data for forecast request from formatted current weather data
   const { dt, lat, lon, timezone } = formattedWeatherData;
 
-  // Fetching forecasted weather data based on latitude and longitude
+  // Fetching forecasted weather data and formatting it
   const formattedForecastedWeather = await getWeatherData("forecast", {
     lat,
     lon,
     units: searchParams.units,
   }).then((data) => formatForecastWeather(dt, timezone, data.list));
 
-  // Returning combined object containing formatted current and forecasted weather data
+  // Combining current and forecasted weather data into a single object
   return { ...formattedWeatherData, ...formattedForecastedWeather };
 };
 
-// Exporting the getFormattedData function as default
-export default getFormattedData;
+// Exporting the function to retrieve formatted weather data
+export { getFormattedData };

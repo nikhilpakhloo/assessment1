@@ -11,7 +11,7 @@ export default function TimeAndLocation({weather:{formattedLocalTime, name, coun
             </p>
         </div>
         <div className='flex items-center justify-center my-3'>
-            <p className='text-3xl font-medium'>{name}, {country}</p>
+            <p className='text-2xl font-medium'>{name}, {country}</p>
         </div>
     </div>
   )

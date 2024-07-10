@@ -4,7 +4,9 @@ import SearchBar from "./components/SearchBar";
 import TimeAndLocation from "./components/TimeAndLocation";
 import WeatherDetails from "./components/WeatherDetails";
 import Forecast from "./components/Forecast";
-import getFormattedData from "./components/WeatherServices/WeatherServices";
+
+
+import { getFormattedData } from "./components/WeatherServices/WeatherServices";
 
 export default function App() {
   const [query, setQuery] = useState({ q: "London" });
@@ -23,13 +25,13 @@ export default function App() {
     if (!weather) return "from-cyan-600 to-blue-700";
     4;
     const threshold = units === "metric" ? 20 : 68;
-    if (weather.temp <= threshold) return "from-cyan-600 to-blue-700";
-    return "from-yellow-600 to-orange-700";
+    if (weather.temp <= threshold) return "from-blue-400 to-blue-700";
+    return "from-yellow-400 to-yellow-700";
   };
 
   return (
     <div
-      className={`mx-auto max-w-screen-lg mt-4 py-5 px-32 bg-gradient-to-br ${formattedBg()} shadow-xl shadow-gray-400`}
+      className={`mx-auto max-w-screen-sm mt-4 py-5 px-4 bg-gradient-to-br ${formattedBg()} shadow-xl shadow-gray-400 rounded-xl `}
     >
       <TopCities setQuery={setQuery} />
       <SearchBar setQuery={setQuery} setUnits={setUnits} />
