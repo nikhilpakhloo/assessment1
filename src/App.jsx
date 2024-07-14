@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <div
-      className={`mx-auto max-w-screen-sm mt-4 py-5 px-4 bg-gradient-to-br ${formattedBg()} shadow-xl shadow-gray-400 rounded-xl `}
+      className={`mx-auto max-w-screen-xl mt-4 py-5 px-4 bg-gradient-to-br ${formattedBg()} shadow-xl shadow-gray-400 rounded-xl `}
     >
       <TopCities setQuery={setQuery} />
       <SearchBar setQuery={setQuery} setUnits={setUnits} />
