@@ -85,6 +85,7 @@ const formatForecastWeather = (secs, offset, data) => {
   return { hourly, daily };
 };
 
+
 // Async function to fetch and format weather data for display
 const getFormattedData = async (searchParams) => {
   // Fetching current weather data and formatting it

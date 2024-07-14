@@ -9,7 +9,7 @@ import { getFormattedData } from "./WeatherServices/WeatherServices";
 
 
 export default function App() {
-  const [query, setQuery] = useState({ q: "Gurugram" });
+  const [query, setQuery] = useState({ q: "Himachal Pradesh" });
   const [units, setUnits] = useState("metric");
   const [weather, setWeather] = useState(null);
   const getWeather = async () => {
@@ -22,7 +22,7 @@ export default function App() {
   }, [query, units]);
 
   const formattedBg = () => {
-    if (!weather) return "from-cyan-600 to-blue-700";
+    if (!weather) return "bg-gradient-to-r from-cyan-600 to-blue-700";
     4;
     const threshold = units === "metric" ? 20 : 68;
     if (weather.temp <= threshold) return "from-blue-400 to-blue-700";
@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <div
-      className={`mx-auto max-w-screen-xl mt-4 py-5 px-4 bg-gradient-to-br ${formattedBg()} shadow-xl shadow-gray-400 rounded-xl `}
+      className={`mx-auto max-w-screen-xl mt-4 py-5 px-4 bg-gradient-to-br ${formattedBg()}  shadow-xl shadow-gray-400 rounded-sm `}
     >
       <TopCities setQuery={setQuery} />
       <SearchBar setQuery={setQuery} setUnits={setUnits} />
